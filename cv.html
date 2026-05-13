@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kingsley Ezekiel Nabla — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0f172a;
+  --sky:#38bdf8;
+  --sky-light:#e0f2fe;
+  --sky-mid:#0ea5e9;
+  --white:#ffffff;
+  --off:#f8fafc;
+  --muted:#64748b;
+  --border:#e2e8f0;
+  --text:#1e293b;
+  --accent:#0284c7;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  height:64px;
+}
+.nav-logo{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:700;
+  color:var(--navy);
+  letter-spacing:-0.5px;
+}
+.nav-logo span{color:var(--sky-mid)}
+.nav-links{display:flex;gap:8px}
+.nav-link{
+  padding:8px 18px;border-radius:40px;
+  font-size:13.5px;font-weight:500;
+  cursor:pointer;border:none;background:none;
+  color:var(--muted);transition:all .2s;
+  letter-spacing:0.2px;
+}
+.nav-link:hover{color:var(--navy)}
+.nav-link.active{background:var(--navy);color:var(--white)}
+
+/* PAGES */
+.page{display:none;min-height:100vh;padding-top:64px}
+.page.active{display:block}
+
+/* ===== HOME PAGE ===== */
+.hero{
+  min-height:calc(100vh - 64px);
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:80px 8%;
+  gap:60px;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--sky-light);color:var(--accent);
+  font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+  padding:6px 14px;border-radius:40px;margin-bottom:24px;
+}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--sky-mid);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero-name{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(38px,5vw,60px);
+  font-weight:700;line-height:1.1;
+  color:var(--navy);margin-bottom:16px;
+  letter-spacing:-1px;
+}
+.hero-name em{color:var(--sky-mid);font-style:normal}
+.hero-title{
+  font-size:15px;color:var(--muted);font-weight:400;
+  line-height:1.7;margin-bottom:32px;max-width:480px;
+}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{
+  background:var(--navy);color:var(--white);
+  padding:13px 28px;border-radius:8px;
+  font-size:14px;font-weight:500;
+  cursor:pointer;border:none;
+  transition:all .2s;letter-spacing:0.2px;
+}
+.btn-primary:hover{background:var(--accent);transform:translateY(-1px)}
+.btn-outline{
+  background:none;color:var(--navy);
+  border:1.5px solid var(--border);
+  padding:13px 28px;border-radius:8px;
+  font-size:14px;font-weight:500;
+  cursor:pointer;transition:all .2s;
+}
+.btn-outline:hover{border-color:var(--navy);background:var(--off)}
+
+/* avatar ring */
+.hero-visual{display:flex;flex-direction:column;align-items:center;gap:24px}
+.avatar-wrap{
+  width:280px;height:280px;border-radius:50%;
+  background:linear-gradient(135deg,var(--sky-light) 0%,#bae6fd 100%);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.avatar-wrap::before{
+  content:'';position:absolute;inset:-8px;border-radius:50%;
+  border:2px dashed #bae6fd;animation:spin 20s linear infinite;
+  z-index:2;pointer-events:none;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.avatar-wrap img{
+  width:100%;height:100%;object-fit:cover;border-radius:50%;
+}
+.avatar-initials{
+  font-family:'Playfair Display',serif;
+  font-size:64px;font-weight:700;color:var(--navy);
+  line-height:1;
+}
+.stat-chips{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.chip{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:8px;padding:10px 18px;text-align:center;
+  box-shadow:0 2px 8px rgba(0,0,0,0.04);
+}
+.chip-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy)}
+.chip-label{font-size:11px;color:var(--muted);font-weight:500}
+
+/* skills strip */
+.skills-strip{
+  background:var(--off);border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:40px 8%;
+}
+.strip-title{
+  text-align:center;font-size:12px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:28px;font-weight:500;
+}
+.skills-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:10px;
+}
+.skill-tag{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:8px;padding:10px 14px;
+  font-size:13px;font-weight:400;color:var(--text);
+  text-align:center;transition:all .2s;
+}
+.skill-tag:hover{border-color:var(--sky-mid);color:var(--accent);background:var(--sky-light)}
+
+/* experience section */
+.section{padding:80px 8%}
+.section-label{
+  font-size:12px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--sky-mid);font-weight:600;margin-bottom:10px;
+}
+.section-heading{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,4vw,40px);font-weight:700;
+  color:var(--navy);margin-bottom:48px;line-height:1.2;
+}
+.timeline{position:relative;padding-left:28px}
+.timeline::before{
+  content:'';position:absolute;left:0;top:8px;bottom:8px;
+  width:1.5px;background:var(--border);
+}
+.t-item{position:relative;margin-bottom:36px}
+.t-dot{
+  position:absolute;left:-34px;top:6px;
+  width:12px;height:12px;border-radius:50%;
+  background:var(--sky-mid);border:3px solid var(--white);
+  box-shadow:0 0 0 2px var(--sky-mid);
+}
+.t-company{font-size:11px;color:var(--sky-mid);font-weight:600;letter-spacing:0.5px;margin-bottom:4px;text-transform:uppercase}
+.t-role{font-size:17px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.t-date{font-size:12px;color:var(--muted);margin-bottom:10px;font-style:italic}
+.t-list{list-style:none;padding:0}
+.t-list li{
+  font-size:13.5px;color:#475569;padding:3px 0 3px 16px;
+  position:relative;line-height:1.6;
+}
+.t-list li::before{content:'→';position:absolute;left:0;color:var(--sky-mid);font-size:11px;top:5px}
+
+/* projects cards */
+.projects-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+}
+.proj-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:12px;padding:20px;
+  transition:all .25s;
+  position:relative;overflow:hidden;
+}
+.proj-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:3px;background:var(--sky-mid);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .25s;
+}
+.proj-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.08)}
+.proj-card:hover::after{transform:scaleX(1)}
+.proj-icon{font-size:20px;margin-bottom:10px}
+.proj-name{font-size:13.5px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.proj-url{font-size:11.5px;color:var(--muted)}
+
+/* contact strip */
+.contact-strip{
+  background:var(--navy);color:var(--white);
+  padding:60px 8%;display:flex;
+  align-items:center;justify-content:space-between;
+  gap:32px;flex-wrap:wrap;
+}
+.contact-strip h2{
+  font-family:'Playfair Display',serif;
+  font-size:28px;font-weight:700;
+}
+.contact-strip p{color:#94a3b8;font-size:14px;margin-top:6px}
+.contact-details{display:flex;gap:32px;flex-wrap:wrap}
+.c-item{display:flex;flex-direction:column;gap:4px}
+.c-label{font-size:11px;color:#94a3b8;letter-spacing:1px;text-transform:uppercase;font-weight:500}
+.c-val{font-size:14px;font-weight:500}
+.c-val a{color:var(--sky);text-decoration:none}
+
+/* ===== CV PAGE ===== */
+.cv-page{padding:60px 8%}
+.cv-top{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:40px;flex-wrap:wrap;gap:20px;
+}
+.cv-top h1{
+  font-family:'Playfair Display',serif;
+  font-size:32px;font-weight:700;color:var(--navy);
+}
+.cv-top p{font-size:14px;color:var(--muted);margin-top:4px}
+.download-btn{
+  display:flex;align-items:center;gap:8px;
+  background:var(--navy);color:var(--white);
+  padding:12px 24px;border-radius:8px;
+  font-size:13.5px;font-weight:500;
+  cursor:pointer;border:none;transition:all .2s;text-decoration:none;
+}
+.download-btn:hover{background:var(--accent)}
+.download-btn svg{width:16px;height:16px}
+
+.cv-frame-wrap{
+  background:var(--off);border:1px solid var(--border);
+  border-radius:16px;overflow:hidden;
+  box-shadow:0 4px 24px rgba(0,0,0,0.06);
+}
+/* Inline CV render */
+.cv-render{
+  display:grid;grid-template-columns:260px 1fr;
+  min-height:900px;
+}
+.cv-sidebar{
+  background:var(--navy);color:var(--white);
+  padding:40px 24px;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+.cv-avi{
+  width:110px;height:110px;border-radius:50%;
+  overflow:hidden;
+  margin:0 auto 14px;border:3px solid rgba(255,255,255,0.1);
+}
+.cv-avi img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.cv-name{text-align:center;font-size:17px;font-weight:600;line-height:1.2;margin-bottom:4px}
+.cv-post{text-align:center;color:#38bdf8;font-size:10px;margin-bottom:24px;line-height:1.5;font-weight:500}
+.cv-sec{margin-bottom:20px}
+.cv-sec h3{
+  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  color:#38bdf8;border-bottom:1px solid rgba(255,255,255,0.1);
+  padding-bottom:6px;margin-bottom:10px;font-weight:600;
+}
+.cv-sec p,.cv-sec li{font-size:11px;line-height:1.7;color:#cbd5e1}
+.cv-sec ul{list-style:none;padding:0}
+.cv-sec li{padding:2px 0}
+.cv-sec a{color:#38bdf8;text-decoration:none}
+.cv-main{background:var(--white);padding:36px 40px}
+.cv-main-sec{margin-bottom:24px}
+.cv-main-sec h2{
+  font-family:'Playfair Display',serif;
+  font-size:17px;font-weight:700;color:var(--navy);
+  border-bottom:2px solid var(--sky-mid);
+  display:inline-block;padding-bottom:4px;margin-bottom:14px;
+}
+.cv-summary{font-size:12.5px;color:#475569;line-height:1.8;text-align:justify}
+.cv-job{margin-bottom:14px}
+.cv-job h3{font-size:14px;font-weight:600;color:var(--navy)}
+.cv-company{font-size:12px;color:var(--accent);font-weight:600;margin-bottom:2px}
+.cv-date{font-size:11px;color:var(--muted);font-style:italic;margin-bottom:6px}
+.cv-job ul{padding-left:14px}
+.cv-job li{font-size:12px;line-height:1.7;color:#475569}
+.cv-projects-g{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.cv-proj{
+  background:var(--off);border-left:3px solid var(--sky-mid);
+  border-radius:4px;padding:6px 10px;
+  font-size:11px;color:#475569;
+}
+.cv-edu{background:var(--off);border-radius:8px;padding:14px}
+.cv-edu h3{font-size:13px;font-weight:600;color:var(--navy)}
+.cv-edu p{font-size:12px;color:var(--muted)}
+.cv-refs{display:flex;gap:20px}
+.cv-ref{flex:1;font-size:12px;color:#475569}
+.cv-ref strong{color:var(--navy);display:block;margin-bottom:2px;font-size:12.5px}
+
+/* ===== CERTIFICATES PAGE ===== */
+.cert-page{padding:60px 8%}
+.cert-header{margin-bottom:48px;text-align:center}
+.cert-header h1{
+  font-family:'Playfair Display',serif;
+  font-size:36px;font-weight:700;color:var(--navy);margin-bottom:10px;
+}
+.cert-header p{font-size:15px;color:var(--muted);max-width:500px;margin:0 auto}
+
+.cert-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;margin-bottom:48px;
+}
+.cert-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;
+  transition:all .25s;cursor:pointer;
+}
+.cert-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.1);border-color:var(--sky-mid)}
+.cert-thumb{
+  height:160px;display:flex;align-items:center;justify-content:center;
+  font-size:48px;position:relative;overflow:hidden;
+}
+.cert-thumb.blue{background:linear-gradient(135deg,#e0f2fe,#bae6fd)}
+.cert-thumb.navy{background:linear-gradient(135deg,#e2e8f0,#cbd5e1)}
+.cert-thumb.green{background:linear-gradient(135deg,#dcfce7,#bbf7d0)}
+.cert-thumb.amber{background:linear-gradient(135deg,#fef3c7,#fde68a)}
+.cert-thumb.purple{background:linear-gradient(135deg,#ede9fe,#ddd6fe)}
+.cert-stamp{
+  position:absolute;bottom:12px;right:12px;
+  background:rgba(255,255,255,0.9);
+  border:1.5px solid var(--border);border-radius:6px;
+  padding:4px 10px;font-size:10px;font-weight:600;
+  color:var(--navy);letter-spacing:0.5px;
+}
+.cert-body{padding:18px 20px 20px}
+.cert-body h3{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:6px;line-height:1.4}
+.cert-body p{font-size:12.5px;color:var(--muted);line-height:1.6}
+.cert-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--sky-light);color:var(--accent);
+  font-size:10.5px;font-weight:600;padding:4px 10px;
+  border-radius:20px;margin-top:10px;
+}
+
+.cert-cta{
+  text-align:center;
+  background:var(--off);border:1px solid var(--border);
+  border-radius:16px;padding:48px;
+}
+.cert-cta h2{
+  font-family:'Playfair Display',serif;
+  font-size:24px;color:var(--navy);margin-bottom:10px;
+}
+.cert-cta p{font-size:14px;color:var(--muted);margin-bottom:24px}
+.cert-drive-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--navy);color:var(--white);
+  padding:14px 32px;border-radius:10px;
+  font-size:14px;font-weight:500;text-decoration:none;
+  transition:all .2s;
+}
+.cert-drive-btn:hover{background:var(--accent);transform:translateY(-1px)}
+.cert-drive-btn svg{width:18px;height:18px}
+
+/* footer */
+footer{
+  background:var(--navy);color:#94a3b8;
+  text-align:center;padding:24px;font-size:12.5px;
+}
+footer a{color:var(--sky);text-decoration:none}
+
+/* responsive */
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr;text-align:center;padding:60px 6%}
+  .hero-visual{display:none}
+  .hero-ctas{justify-content:center}
+  .cv-render{grid-template-columns:1fr}
+  .cv-sidebar{padding:32px 24px}
+  .cv-refs{flex-direction:column}
+  .cv-projects-g{grid-template-columns:repeat(2,1fr)}
+  .contact-strip{flex-direction:column;text-align:center}
+  .contact-details{flex-direction:column;align-items:center}
+}
+
+/* page transitions */
+.page{animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">KE<span>N</span></div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showPage('home')">Home</button>
+    <button class="nav-link" onclick="showPage('cv')">View CV</button>
+    <button class="nav-link" onclick="showPage('certs')">Certificates</button>
+  </div>
+</nav>
+
+<!-- ===== HOME ===== -->
+<div id="home" class="page active">
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Available for opportunities</div>
+      <h1 class="hero-name">Kingsley<br><em>Ezekiel Nabla</em></h1>
+      <p class="hero-title">Infrastructure Engineer &amp; Full Stack Developer with 7+ years building enterprise systems, scalable web applications, and cloud-integrated platforms across Ghana and beyond.</p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="showPage('cv')">View My CV</button>
+        <button class="btn-outline" onclick="showPage('certs')">Certificates</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="avatar-wrap">
+        <img src="me2.jpg" alt="Kingsley Ezekiel Nabla">
+      </div>
+      <div class="stat-chips">
+        <div class="chip"><div class="chip-num">7+</div><div class="chip-label">Years Exp.</div></div>
+        <div class="chip"><div class="chip-num">15+</div><div class="chip-label">Projects Built</div></div>
+        <div class="chip"><div class="chip-num">7+</div><div class="chip-label">Certifications</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="skills-strip">
+    <div class="strip-title">Core Technical Skills</div>
+    <div class="skills-grid">
+      <div class="skill-tag">Laravel Development</div>
+      <div class="skill-tag">PHP &amp; JavaScript</div>
+      <div class="skill-tag">REST API Integrations</div>
+      <div class="skill-tag">Payment Gateways</div>
+      <div class="skill-tag">MySQL Databases</div>
+      <div class="skill-tag">Linux SysAdmin</div>
+      <div class="skill-tag">AWS Cloud</div>
+      <div class="skill-tag">Office 365 Admin</div>
+      <div class="skill-tag">Networking &amp; CCTV</div>
+      <div class="skill-tag">Active Directory</div>
+      <div class="skill-tag">WordPress &amp; Elementor</div>
+      <div class="skill-tag">AI Productivity Tools</div>
+    </div>
+  </div>
+
+  <section class="section" style="background:var(--white)">
+    <div class="section-label">Career Journey</div>
+    <h2 class="section-heading">Professional Experience</h2>
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-company">Zeepay Ghana Limited</div>
+        <div class="t-role">Infrastructure &amp; Tech Support Officer / Programmer</div>
+        <div class="t-date">2019 – Present</div>
+        <ul class="t-list">
+          <li>Managed enterprise IT infrastructure and end-to-end technical support operations.</li>
+          <li>Built Visitor Log System, Intranet Platform, and Grievance Management Portal from scratch.</li>
+          <li>Handled biometric systems, CCTV, telephony, networking, and shared drive infrastructure.</li>
+          <li>Configured domain controllers and worked extensively with API integrations via Postman.</li>
+        </ul>
+      </div>
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-company">Stanbic Bank Ghana Limited</div>
+        <div class="t-role">Service Support – Infrastructure Team</div>
+        <div class="t-date">2018 – 2019</div>
+        <ul class="t-list">
+          <li>Provided technical support and infrastructure maintenance across all bank branches.</li>
+          <li>Participated in the Windows 10 enterprise deployment rollout project.</li>
+          <li>Assisted with Avaya telephony firmware upgrades and switch cable management.</li>
+        </ul>
+      </div>
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-company">Ghana Fintech Awards</div>
+        <div class="t-role">Full Stack Developer &amp; Graphic Designer</div>
+        <div class="t-date">2021 – Present</div>
+        <ul class="t-list">
+          <li>Built and maintained full stack educational and fintech platforms end-to-end.</li>
+          <li>Developed Laravel applications, student portals, and payment-integrated solutions.</li>
+          <li>Designed UI/UX assets and digital branding materials for award events.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--off);border-top:1px solid var(--border)">
+    <div class="section-label">Portfolio</div>
+    <h2 class="section-heading">Major Projects</h2>
+    <div class="projects-grid">
+      <div class="proj-card"><div class="proj-icon">🎓</div><div class="proj-name">Fanaka University</div><div class="proj-url">fanaka.edu.gh</div></div>
+      <div class="proj-card"><div class="proj-icon">📋</div><div class="proj-name">Fanaka Applications</div><div class="proj-url">apply.fanaka.edu.gh</div></div>
+      <div class="proj-card"><div class="proj-icon">🖥️</div><div class="proj-name">Student Portal</div><div class="proj-url">portal.fanaka.edu.gh</div></div>
+      <div class="proj-card"><div class="proj-icon">🏆</div><div class="proj-name">Ghana Fintech Awards</div><div class="proj-url">ghanafintechawards.org</div></div>
+      <div class="proj-card"><div class="proj-icon">🌐</div><div class="proj-name">Top Fintech Voices</div><div class="proj-url">topfintechvoices.org</div></div>
+      <div class="proj-card"><div class="proj-icon">🏅</div><div class="proj-name">Fintech Awards UG</div><div class="proj-url">fintechawardsug.com</div></div>
+      <div class="proj-card"><div class="proj-icon">👤</div><div class="proj-name">Visitor Log System</div><div class="proj-url">Internal — Zeepay Ghana</div></div>
+      <div class="proj-card"><div class="proj-icon">🏢</div><div class="proj-name">Company Intranet</div><div class="proj-url">Internal — Zeepay Ghana</div></div>
+      <div class="proj-card"><div class="proj-icon">📝</div><div class="proj-name">Grievance Portal</div><div class="proj-url">Internal — Zeepay Ghana</div></div>
+      <div class="proj-card"><div class="proj-icon">💬</div><div class="proj-name">School SMS Platform</div><div class="proj-url">Hubtel API Integration</div></div>
+    </div>
+  </section>
+
+  <div class="contact-strip">
+    <div>
+      <h2>Let's work together</h2>
+      <p>Open to infrastructure, full stack, and cloud roles</p>
+    </div>
+    <div class="contact-details">
+      <div class="c-item">
+        <span class="c-label">Email</span>
+        <span class="c-val"><a href="mailto:kinnabla@gmail.com">kinnabla@gmail.com</a></span>
+      </div>
+      <div class="c-item">
+        <span class="c-label">Phone</span>
+        <span class="c-val">+233 548 953 201</span>
+      </div>
+      <div class="c-item">
+        <span class="c-label">Location</span>
+        <span class="c-val">Accra, Ghana</span>
+      </div>
+      <div class="c-item">
+        <span class="c-label">LinkedIn</span>
+        <span class="c-val"><a href="https://gh.linkedin.com/in/kingsley-nabla-05a3b0119" target="_blank">kingsley-nabla</a></span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Kingsley Ezekiel Nabla — Built with care &middot; <a href="mailto:kinnabla@gmail.com">kinnabla@gmail.com</a>
+  </footer>
+</div>
+
+<!-- ===== CV PAGE ===== -->
+<div id="cv" class="page">
+  <div class="cv-page">
+    <div class="cv-top">
+      <div>
+        <h1>Curriculum Vitae</h1>
+        <p>Kingsley Ezekiel Nabla — Infrastructure Engineer &amp; Full Stack Developer</p>
+      </div>
+      <a href="#" class="download-btn" onclick="printCV(); return false;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </a>
+    </div>
+
+    <div class="cv-frame-wrap">
+      <div class="cv-render" id="cv-content">
+        <!-- Sidebar -->
+        <aside class="cv-sidebar">
+          <div class="cv-avi"><img src="me.jfif" alt="Kingsley Ezekiel Nabla"></div>
+          <div class="cv-name">Kingsley Ezekiel Nabla</div>
+          <div class="cv-post">Infrastructure Engineer | Full Stack Developer<br>Cloud &amp; Systems Support</div>
+
+          <div class="cv-sec">
+            <h3>Contact</h3>
+            <p>📍 Accra, Ghana</p>
+            <p>📞 +233 548 953 201</p>
+            <p>📧 <a href="mailto:kinnabla@gmail.com">kinnabla@gmail.com</a></p>
+            <p>🔗 <a href="https://gh.linkedin.com/in/kingsley-nabla-05a3b0119" target="_blank">linkedin.com/in/kingsley-nabla</a></p>
+          </div>
+
+          <div class="cv-sec">
+            <h3>Core Skills</h3>
+            <ul>
+              <li>Laravel Full Stack Development</li>
+              <li>PHP &amp; JavaScript</li>
+              <li>REST API Integrations</li>
+              <li>Payment Gateway Integration</li>
+              <li>WordPress &amp; Elementor</li>
+              <li>MySQL Database Management</li>
+              <li>Linux System Administration</li>
+              <li>AWS Cloud Fundamentals</li>
+              <li>Office 365 Administration</li>
+              <li>Networking &amp; CCTV Systems</li>
+              <li>Active Directory &amp; Domain Controllers</li>
+              <li>IT Infrastructure Support</li>
+              <li>Technical Troubleshooting</li>
+              <li>AI Productivity Tools</li>
+            </ul>
+          </div>
+
+          <div class="cv-sec">
+            <h3>Certifications</h3>
+            <ul>
+              <li>Advanced Linux System Admin</li>
+              <li>AWS Certified Cloud Practitioner</li>
+              <li>AI for Brainstorming &amp; Planning</li>
+              <li>Safe &amp; Responsible AI Use</li>
+              <li>Emergency First Aid, CPR &amp; AED</li>
+              <li>Laravel Full Stack Development</li>
+              <li>API Integration with Postman</li>
+            </ul>
+          </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="cv-main">
+          <div class="cv-main-sec">
+            <h2>Professional Summary</h2>
+            <p class="cv-summary">Results-driven IT Professional and Full Stack Software Developer with over 7 years of experience in enterprise IT infrastructure, systems administration, networking, cloud support, and software engineering. Experienced in building scalable web applications, student portals, intranet systems, workflow automation platforms, and payment-integrated solutions from scratch. Strong expertise in Laravel development, API integrations, infrastructure support, networking, cloud fundamentals, and enterprise technology operations.</p>
+          </div>
+
+          <div class="cv-main-sec">
+            <h2>Professional Experience</h2>
+            <div class="cv-job">
+              <h3>Infrastructure &amp; Tech Support Officer / Programmer</h3>
+              <div class="cv-company">Zeepay Ghana Limited</div>
+              <div class="cv-date">2019 – Present</div>
+              <ul><li>Managed enterprise IT infrastructure and technical support operations.</li><li>Built Visitor Log System, Intranet Platform, and Grievance Portal.</li><li>Handled biometric systems, CCTV, telephony, and networking.</li><li>Configured domain controllers and shared drive infrastructure.</li><li>Worked with API integrations and testing using Postman.</li></ul>
+            </div>
+            <div class="cv-job">
+              <h3>Service Support – Infrastructure Team</h3>
+              <div class="cv-company">Stanbic Bank Ghana Limited</div>
+              <div class="cv-date">2018 – 2019</div>
+              <ul><li>Provided technical support and infrastructure maintenance.</li><li>Participated in Windows 10 deployment projects.</li><li>Assisted with Avaya telephony firmware upgrades.</li><li>Performed switch cable management and network support.</li></ul>
+            </div>
+            <div class="cv-job">
+              <h3>Full Stack Developer &amp; Graphic Designer</h3>
+              <div class="cv-company">Ghana Fintech Awards</div>
+              <div class="cv-date">2021 – Present</div>
+              <ul><li>Built and maintained full stack educational and fintech platforms.</li><li>Developed Laravel applications and student portals from scratch.</li><li>Integrated payment gateways and external APIs.</li><li>Designed UI/UX assets and digital branding materials.</li></ul>
+            </div>
+          </div>
+
+          <div class="cv-main-sec">
+            <h2>Major Projects</h2>
+            <div class="cv-projects-g">
+              <div class="cv-proj">fanaka.edu.gh</div>
+              <div class="cv-proj">apply.fanaka.edu.gh</div>
+              <div class="cv-proj">portal.fanaka.edu.gh</div>
+              <div class="cv-proj">ghanafintechawards.org</div>
+              <div class="cv-proj">topfintechvoices.org</div>
+              <div class="cv-proj">fintechawardsug.com</div>
+              <div class="cv-proj">Visitor Log System</div>
+              <div class="cv-proj">Company Intranet Platform</div>
+              <div class="cv-proj">Grievance Management Portal</div>
+              <div class="cv-proj">School SMS with Hubtel API</div>
+            </div>
+          </div>
+
+          <div class="cv-main-sec">
+            <h2>Education</h2>
+            <div class="cv-edu">
+              <h3>Bachelor of Education (B.Ed.) – Computer Science</h3>
+              <p>University of Cape Coast &nbsp;|&nbsp; 2014 – 2018</p>
+            </div>
+          </div>
+
+          <div class="cv-main-sec">
+            <h2>References</h2>
+            <div class="cv-refs">
+              <div class="cv-ref"><strong>Dr. Rosemary Twum</strong>Lecturer, University of Cape Coast<br>+233 24 464 8897</div>
+              <div class="cv-ref"><strong>Mr. Michael Bamfo</strong>CEO, BamfoxxHost<br>+233 24 502 4002</div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+  <footer style="margin-top:0">
+    &copy; 2025 Kingsley Ezekiel Nabla — <a href="mailto:kinnabla@gmail.com">kinnabla@gmail.com</a>
+  </footer>
+</div>
+
+<!-- ===== CERTIFICATES PAGE ===== -->
+<div id="certs" class="page">
+  <div class="cert-page">
+    <div class="cert-header">
+      <div class="hero-badge" style="margin:0 auto 16px;display:inline-flex">Verified Credentials</div>
+      <h1>Certifications</h1>
+      <p>Professional certifications earned through rigorous training and examination across technology, cloud, and AI domains.</p>
+    </div>
+
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div class="cert-thumb blue">🐧<div class="cert-stamp">VERIFIED</div></div>
+        <div class="cert-body">
+          <h3>Advanced Linux System Administration</h3>
+          <p>Comprehensive training in Linux server management, scripting, permissions, and enterprise-grade system operations.</p>
+          <div class="cert-badge">💻 Systems</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-thumb amber">☁️<div class="cert-stamp">AWS CERTIFIED</div></div>
+        <div class="cert-body">
+          <h3>AWS Certified Cloud Practitioner</h3>
+          <p>Foundational cloud knowledge covering AWS services, architecture, security, pricing, and billing fundamentals.</p>
+          <div class="cert-badge">☁️ Cloud</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-thumb purple">🤖<div class="cert-stamp">VERIFIED</div></div>
+        <div class="cert-body">
+          <h3>AI for Brainstorming &amp; Planning</h3>
+          <p>Applied AI techniques for structured brainstorming, strategic planning, and leveraging AI tools in professional workflows.</p>
+          <div class="cert-badge">🧠 AI &amp; Productivity</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-thumb green">🛡️<div class="cert-stamp">VERIFIED</div></div>
+        <div class="cert-body">
+          <h3>Safe &amp; Responsible AI Use</h3>
+          <p>Best practices for ethical, safe, and responsible integration of AI tools in professional and organizational contexts.</p>
+          <div class="cert-badge">🛡️ AI Ethics</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-thumb navy">🚑<div class="cert-stamp">VERIFIED</div></div>
+        <div class="cert-body">
+          <h3>Emergency First Aid, CPR &amp; AED Training</h3>
+          <p>Certified in emergency response procedures including cardiopulmonary resuscitation and automated defibrillation.</p>
+          <div class="cert-badge">❤️ First Aid</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-thumb blue">⚙️<div class="cert-stamp">VERIFIED</div></div>
+        <div class="cert-body">
+          <h3>Laravel Full Stack Development</h3>
+          <p>Advanced PHP/Laravel framework development including authentication, Eloquent ORM, REST APIs, and deployment.</p>
+          <div class="cert-badge">🔧 Development</div>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-thumb amber">📡<div class="cert-stamp">VERIFIED</div></div>
+        <div class="cert-body">
+          <h3>API Integration with Postman</h3>
+          <p>Professional API testing, documentation, and integration workflows using Postman for enterprise REST services.</p>
+          <div class="cert-badge">🔌 API</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cert-cta">
+      <h2>View All Certificates</h2>
+      <p>Access the complete collection of original certificate documents in Google Drive.</p>
+      <a href="https://drive.google.com/drive/folders/18QJY0bniyOSqolNXTTl1U2yiTovvpUX-?usp=sharing" target="_blank" class="cert-drive-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.42 22l7.58-13.14 3.79 6.57H8.84l2.42 4.21L4.42 22zm15.16 0H13l-2.42-4.21 3.79-6.57L19.58 22zM12 2L8.21 8.57l-3.79 6.57h15.16L15.79 8.57 12 2z"/></svg>
+        Open in Google Drive
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Kingsley Ezekiel Nabla — <a href="mailto:kinnabla@gmail.com">kinnabla@gmail.com</a>
+  </footer>
+</div>
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const idx={'home':0,'cv':1,'certs':2}[id];
+  document.querySelectorAll('.nav-link')[idx].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function printCV(){
+  const content = document.getElementById('cv-content').innerHTML;
+  const win = window.open('','_blank');
+  win.document.write(`<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>Kingsley Ezekiel Nabla – CV</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:#fff}
+@page{size:A4 landscape;margin:0}
+.cv-render{display:grid;grid-template-columns:260px 1fr;min-height:100vh;width:100%}
+.cv-sidebar{background:#0f172a;color:#fff;padding:36px 22px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cv-avi{width:100px;height:100px;border-radius:50%;overflow:hidden;margin:0 auto 12px;border:3px solid rgba(255,255,255,.1);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cv-avi img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+.cv-name{text-align:center;font-size:16px;font-weight:600;line-height:1.2;margin-bottom:4px}
+.cv-post{text-align:center;color:#38bdf8;font-size:9.5px;margin-bottom:22px;line-height:1.5}
+.cv-sec{margin-bottom:18px}
+.cv-sec h3{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#38bdf8;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:5px;margin-bottom:8px}
+.cv-sec p,.cv-sec li{font-size:10.5px;line-height:1.7;color:#cbd5e1}
+.cv-sec ul{list-style:none;padding:0}
+.cv-sec a{color:#38bdf8;text-decoration:none}
+.cv-main{background:#fff;padding:32px 38px}
+.cv-main-sec{margin-bottom:20px}
+.cv-main-sec h2{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#0f172a;border-bottom:2px solid #0ea5e9;display:inline-block;padding-bottom:3px;margin-bottom:12px}
+.cv-summary{font-size:11.5px;color:#475569;line-height:1.8;text-align:justify}
+.cv-job{margin-bottom:12px}
+.cv-job h3{font-size:13px;font-weight:600;color:#0f172a}
+.cv-company{font-size:11px;color:#0284c7;font-weight:600;margin-bottom:2px}
+.cv-date{font-size:10px;color:#64748b;font-style:italic;margin-bottom:5px}
+.cv-job ul{padding-left:12px}
+.cv-job li{font-size:11px;line-height:1.7;color:#475569}
+.cv-projects-g{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.cv-proj{background:#f8fafc;border-left:3px solid #0ea5e9;border-radius:3px;padding:5px 8px;font-size:10px;color:#475569}
+.cv-edu{background:#f8fafc;border-radius:7px;padding:12px}
+.cv-edu h3{font-size:12px;font-weight:600;color:#0f172a}
+.cv-edu p{font-size:11px;color:#64748b}
+.cv-refs{display:flex;gap:20px}
+.cv-ref{flex:1;font-size:11px;color:#475569}
+.cv-ref strong{color:#0f172a;display:block;margin-bottom:2px;font-size:11.5px}
+</style>
+</head><body><div class="cv-render">${content}</div></body></html>`);
+  win.document.close();
+  setTimeout(()=>{win.print();},600);
+}
+</script>
+</body>
+</html>
