@@ -274,6 +274,30 @@ nav{
 }
 .download-btn:hover{background:var(--accent)}
 .download-btn svg{width:16px;height:16px}
+.dl-chevron{transition:transform .2s}
+
+.dl-wrap{position:relative}
+.dl-wrap.open .dl-chevron{transform:rotate(180deg)}
+.dl-menu{
+  display:none;position:absolute;top:calc(100% + 8px);right:0;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:12px;box-shadow:0 16px 40px rgba(15,23,42,0.12);
+  padding:8px;min-width:280px;z-index:50;
+}
+.dl-menu.open{display:block}
+.dl-option{
+  display:flex;align-items:center;gap:12px;
+  width:100%;text-align:left;background:none;border:none;
+  border-radius:8px;padding:10px 12px;cursor:pointer;
+  transition:background .15s;
+}
+.dl-option:hover{background:var(--sky-light)}
+.dl-swatch{width:34px;height:34px;border-radius:8px;flex-shrink:0}
+.dl-swatch-navy{background:linear-gradient(135deg,var(--navy) 0%,var(--navy) 45%,var(--sky-mid) 45%,var(--sky-mid) 100%)}
+.dl-swatch-clean{background:linear-gradient(135deg,var(--off) 0%,var(--off) 60%,var(--sky-mid) 60%,var(--sky-mid) 68%,var(--off) 68%)}
+.dl-option-text{display:flex;flex-direction:column;gap:1px}
+.dl-option-text strong{font-size:13.5px;color:var(--navy);font-weight:600}
+.dl-option-text small{font-size:11.5px;color:var(--muted)}
 
 .cv-frame-wrap{
   background:var(--off);border:1px solid var(--border);
@@ -703,7 +727,7 @@ footer a{color:var(--sky);text-decoration:none}
         <span class="c-label">LinkedIn</span>
         <span class="c-val"><a href="https://gh.linkedin.com/in/kingsley-nabla-05a3b0119" target="_blank">kingsley-nabla</a></span>
       </div>
-       <div class="c-item">
+      <div class="c-item">
         <span class="c-label">Website</span>
         <span class="c-val"><a href="https://kingsleynabla.github.io/" target="_blank">kingsleynabla.github.io</a></span>
       </div>
@@ -723,10 +747,29 @@ footer a{color:var(--sky);text-decoration:none}
         <h1>Curriculum Vitae</h1>
         <p>Kingsley Ezekiel Nabla — IT Infrastructure Specialist &amp; Full Stack Developer</p>
       </div>
-      <a href="#" class="download-btn" onclick="printCV(); return false;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download PDF
-      </a>
+      <div class="dl-wrap">
+        <button class="download-btn" onclick="toggleDlMenu()" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF
+          <svg class="dl-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="dl-menu" id="dl-menu">
+          <button class="dl-option" onclick="printCVCreative(); closeDlMenu();" type="button">
+            <span class="dl-swatch dl-swatch-navy"></span>
+            <span class="dl-option-text">
+              <strong>Creative</strong>
+              <small>Navy sidebar design — matches the site</small>
+            </span>
+          </button>
+          <button class="dl-option" onclick="printCVATS(); closeDlMenu();" type="button">
+            <span class="dl-swatch dl-swatch-clean"></span>
+            <span class="dl-option-text">
+              <strong>ATS-Friendly</strong>
+              <small>Clean single column — best for applications</small>
+            </span>
+          </button>
+        </div>
+      </div>
     </div>
 
     <div class="cv-frame-wrap">
@@ -743,7 +786,7 @@ footer a{color:var(--sky);text-decoration:none}
             <p>📞 +233 548 953 201</p>
             <p>📧 <a href="mailto:kinnabla@gmail.com">kinnabla@gmail.com</a></p>
             <p>🔗 <a href="https://gh.linkedin.com/in/kingsley-nabla-05a3b0119" target="_blank">linkedin.com/in/kingsley-nabla</a></p>
-             <p>🌐 <a href="https://kingsleynabla.github.io/" target="_blank">kingsleynabla.github.io</a></p>
+            <p>🌐 <a href="https://kingsleynabla.github.io/" target="_blank">kingsleynabla.github.io</a></p>
           </div>
 
           <div class="cv-sec">
@@ -972,8 +1015,138 @@ function showPage(id){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function printCV(){
-  const content = document.getElementById('cv-content').innerHTML;
+function toggleDlMenu(){
+  document.getElementById('dl-menu').classList.toggle('open');
+  document.querySelector('.dl-wrap').classList.toggle('open');
+}
+function closeDlMenu(){
+  document.getElementById('dl-menu').classList.remove('open');
+  document.querySelector('.dl-wrap').classList.remove('open');
+}
+document.addEventListener('click', function(e){
+  const wrap = document.querySelector('.dl-wrap');
+  if(wrap && !wrap.contains(e.target)) closeDlMenu();
+});
+
+function printCVCreative(){
+  const sidebarHTML = `
+    <div class="cv-avi"><img src="me.jfif" alt="Kingsley Ezekiel Nabla"></div>
+    <div class="cv-name">Kingsley Ezekiel Nabla</div>
+    <div class="cv-post">IT Infrastructure Specialist | Full Stack Developer<br>Cloud &amp; Enterprise Systems</div>
+    <div class="cv-sec">
+      <h3>Contact</h3>
+      <p>📍 Accra, Ghana</p>
+      <p>📞 +233 548 953 201</p>
+      <p>📧 <a href="mailto:kinnabla@gmail.com">kinnabla@gmail.com</a></p>
+      <p>🔗 <a href="https://gh.linkedin.com/in/kingsley-nabla-05a3b0119" target="_blank">linkedin.com/in/kingsley-nabla</a></p>
+      <p>🌐 <a href="https://kingsleynabla.github.io/" target="_blank">kingsleynabla.github.io</a></p>
+    </div>
+    <div class="cv-sec">
+      <h3>Core Skills</h3>
+      <ul>
+        <li>Platform &amp; Infrastructure Engineering</li>
+        <li>AWS Cloud (Certified Practitioner)</li>
+        <li>Active Directory &amp; Domain Services</li>
+        <li>NAS &amp; Enterprise Storage</li>
+        <li>Data Center Build-Out</li>
+        <li>Linux System Administration</li>
+        <li>Networking &amp; CCTV Systems</li>
+        <li>Laravel Full Stack Development</li>
+        <li>PHP &amp; JavaScript</li>
+        <li>REST API &amp; Payment Integrations</li>
+        <li>MySQL Database Management</li>
+        <li>WordPress &amp; Elementor</li>
+        <li>Office 365 Administration</li>
+        <li>AI-Integrated Product Development</li>
+      </ul>
+    </div>
+    <div class="cv-sec">
+      <h3>Certifications</h3>
+      <ul>
+        <li>Advanced Linux System Admin</li>
+        <li>AWS Certified Cloud Practitioner</li>
+        <li>AI for Brainstorming &amp; Planning</li>
+        <li>Safe &amp; Responsible AI Use</li>
+        <li>Emergency First Aid, CPR &amp; AED</li>
+        <li>Laravel Full Stack Development</li>
+        <li>API Integration with Postman</li>
+      </ul>
+    </div>`;
+
+  const page1Main = `
+    <div class="cv-main-sec">
+      <h2>Professional Summary</h2>
+      <p class="cv-summary">Results-driven IT Infrastructure Specialist and Full Stack Developer with over 7 years of experience delivering enterprise infrastructure, platform engineering, and production web platforms. AWS Certified Cloud Practitioner with hands-on platform engineering experience, and a proven track record leading and contributing to Active Directory, NAS, and data center deployments. Complements this infrastructure depth with solo delivery of full stack Laravel applications — including university admissions and student portals, an e-commerce platform with logistics integration, and internal enterprise systems. Combines infrastructure expertise (networking, systems administration, cloud platforms) with hands-on software engineering (Laravel, PHP, MySQL, REST APIs, payment gateways) to build and support complete, reliable technology solutions from the ground up.</p>
+    </div>
+    <div class="cv-main-sec">
+      <h2>Professional Experience</h2>
+      <div class="cv-job">
+        <h3>IT Infrastructure Specialist &amp; Full Stack Developer</h3>
+        <div class="cv-company">Zeepay Ghana Limited</div>
+        <div class="cv-date">2019 – Present</div>
+        <ul>
+          <li>Own end-to-end IT infrastructure: networking, domain services, telephony, biometric access control, and CCTV.</li>
+          <li>Delivered a full Active Directory deployment as part of the core infrastructure team.</li>
+          <li>Delivered a full NAS deployment as part of the core infrastructure team, restructuring enterprise storage and backup.</li>
+          <li>Built out a company mini internal data center — rack layout, server provisioning, and network cabling.</li>
+          <li>Built the company Intranet Platform, Grievance Management Portal, and Visitor Log System solo on Laravel.</li>
+          <li>Integrated the Hubtel SMS API into an internal communications platform.</li>
+          <li>Configured domain controllers and shared drive infrastructure; tested API integrations with Postman.</li>
+        </ul>
+      </div>
+      <div class="cv-job">
+        <h3>Service Support – Infrastructure Team</h3>
+        <div class="cv-company">Stanbic Bank Ghana Limited</div>
+        <div class="cv-date">2018 – 2019</div>
+        <ul><li>Provided technical support and infrastructure maintenance across all bank branches.</li><li>Participated in the Windows 10 enterprise deployment rollout project.</li><li>Assisted with Avaya telephony firmware upgrades and structured cable management.</li></ul>
+      </div>
+      <div class="cv-job">
+        <h3>Full Stack Developer</h3>
+        <div class="cv-company">Independent / Contract Projects</div>
+        <div class="cv-date">2021 – Present</div>
+        <ul>
+          <li>Built Fanaka University's website, payment-integrated Application Portal, and Student Portal solo, full stack.</li>
+          <li>Built and maintain the Ghana Fintech Awards website; delivered supporting API integrations.</li>
+          <li>Designed and built OneCart Africa, a solo e-commerce platform integrated with a logistics partner.</li>
+          <li>Delivered development and integration work for Apprise (apprisemusic.com).</li>
+          <li>Building an AI-integrated event planning platform as an independent product.</li>
+        </ul>
+      </div>
+    </div>`;
+
+  const page2Main = `
+    <div class="cv-main-sec">
+      <h2>Major Projects</h2>
+      <div class="cv-projects-g">
+        <div class="cv-proj">fanaka.edu.gh</div>
+        <div class="cv-proj">apply.fanaka.edu.gh</div>
+        <div class="cv-proj">portal.fanaka.edu.gh</div>
+        <div class="cv-proj">onecartafrica.com</div>
+        <div class="cv-proj">ghanafintechawards.org</div>
+        <div class="cv-proj">apprisemusic.com</div>
+        <div class="cv-proj">topfintechvoices.org</div>
+        <div class="cv-proj">fintechawardsug.com</div>
+        <div class="cv-proj">Company Intranet Platform</div>
+        <div class="cv-proj">Grievance Management Portal</div>
+        <div class="cv-proj">Visitor Log System</div>
+        <div class="cv-proj">School SMS (Hubtel API)</div>
+      </div>
+    </div>
+    <div class="cv-main-sec">
+      <h2>Education</h2>
+      <div class="cv-edu">
+        <h3>Bachelor of Education (B.Ed.) – Computer Science</h3>
+        <p>University of Cape Coast &nbsp;|&nbsp; 2014 – 2018</p>
+      </div>
+    </div>
+    <div class="cv-main-sec">
+      <h2>References</h2>
+      <div class="cv-refs">
+        <div class="cv-ref"><strong>Dr. Rosemary Twum</strong>Lecturer, University of Cape Coast<br>+233 24 464 8897</div>
+        <div class="cv-ref"><strong>Mr. Michael Bamfo</strong>CEO, BamfoxxHost<br>+233 24 502 4002</div>
+      </div>
+    </div>`;
+
   const win = window.open('','_blank');
   win.document.write(`<!DOCTYPE html>
 <html><head>
@@ -984,8 +1157,10 @@ function printCV(){
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'DM Sans',sans-serif;background:#fff}
 @page{size:A4 landscape;margin:0}
-.cv-render{display:grid;grid-template-columns:260px 1fr;min-height:100vh;width:100%}
-.cv-sidebar{background:#0f172a;color:#fff;padding:36px 22px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cv-page-block{width:297mm;height:210mm;overflow:hidden;page-break-after:always}
+.cv-page-block:last-child{page-break-after:auto}
+.cv-render{display:grid;grid-template-columns:260px 1fr;width:100%;height:100%}
+.cv-sidebar{background:#0f172a;color:#fff;padding:36px 22px;-webkit-print-color-adjust:exact;print-color-adjust:exact;overflow:hidden}
 .cv-avi{width:100px;height:100px;border-radius:50%;overflow:hidden;margin:0 auto 12px;border:3px solid rgba(255,255,255,.1);-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .cv-avi img{width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:50%;display:block}
 .cv-name{text-align:center;font-size:16px;font-weight:600;line-height:1.2;margin-bottom:4px}
@@ -995,7 +1170,7 @@ body{font-family:'DM Sans',sans-serif;background:#fff}
 .cv-sec p,.cv-sec li{font-size:10.5px;line-height:1.7;color:#cbd5e1}
 .cv-sec ul{list-style:none;padding:0}
 .cv-sec a{color:#38bdf8;text-decoration:none}
-.cv-main{background:#fff;padding:32px 38px}
+.cv-main{background:#fff;padding:32px 38px;overflow:hidden}
 .cv-main-sec{margin-bottom:20px}
 .cv-main-sec h2{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#0f172a;border-bottom:2px solid #0ea5e9;display:inline-block;padding-bottom:3px;margin-bottom:12px}
 .cv-summary{font-size:11.5px;color:#475569;line-height:1.8;text-align:justify}
@@ -1014,7 +1189,234 @@ body{font-family:'DM Sans',sans-serif;background:#fff}
 .cv-ref{flex:1;font-size:11px;color:#475569}
 .cv-ref strong{color:#0f172a;display:block;margin-bottom:2px;font-size:11.5px}
 </style>
-</head><body><div class="cv-render">${content}</div></body></html>`);
+</head><body>
+<div class="cv-page-block">
+  <div class="cv-render">
+    <aside class="cv-sidebar">${sidebarHTML}</aside>
+    <main class="cv-main">${page1Main}</main>
+  </div>
+</div>
+<div class="cv-page-block">
+  <div class="cv-render">
+    <aside class="cv-sidebar">${sidebarHTML}</aside>
+    <main class="cv-main">${page2Main}</main>
+  </div>
+</div>
+</body></html>`);
+  win.document.close();
+  setTimeout(()=>{win.print();},600);
+}
+
+function printCVATS(){
+  const win = window.open('','_blank');
+  win.document.write(`<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>Kingsley Ezekiel Nabla – CV</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:#fff;color:#1e293b}
+@page{size:A4 portrait;margin:16mm 18mm}
+
+.doc{max-width:100%}
+
+/* Header band — sits once at the top of page 1, not a full-height sidebar */
+.doc-header{
+  display:flex;align-items:center;gap:18px;
+  border-bottom:2.5px solid #0f172a;
+  padding-bottom:16px;margin-bottom:20px;
+  break-inside:avoid;page-break-inside:avoid;
+}
+.doc-avi{
+  width:64px;height:64px;border-radius:50%;overflow:hidden;flex-shrink:0;
+  border:2px solid #0ea5e9;
+}
+.doc-avi img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.doc-id h1{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#0f172a;line-height:1.15}
+.doc-id .doc-role{font-size:11.5px;color:#0284c7;font-weight:600;margin-top:2px}
+.doc-contact{
+  margin-top:6px;display:flex;flex-wrap:wrap;gap:2px 14px;
+  font-size:10px;color:#475569;
+}
+.doc-contact a{color:#0284c7;text-decoration:none}
+
+/* Section */
+.doc-sec{margin-bottom:16px;break-inside:avoid-page;}
+.doc-sec h2{
+  font-family:'Playfair Display',serif;font-size:13.5px;font-weight:700;
+  color:#0f172a;text-transform:uppercase;letter-spacing:0.5px;
+  border-bottom:1.5px solid #0ea5e9;display:inline-block;
+  padding-bottom:3px;margin-bottom:10px;
+}
+.doc-summary{font-size:11px;line-height:1.7;color:#334155;text-align:justify}
+
+/* Skills as an inline tag row instead of a boxed list */
+.doc-tags{display:flex;flex-wrap:wrap;gap:6px}
+.doc-tag{
+  font-size:9.5px;color:#0f172a;background:#f1f5f9;
+  border:1px solid #e2e8f0;border-radius:4px;padding:3px 8px;
+}
+
+.doc-job{margin-bottom:12px;break-inside:avoid;page-break-inside:avoid;}
+.doc-job h3{font-size:12px;font-weight:700;color:#0f172a}
+.doc-company{font-size:10.5px;color:#0284c7;font-weight:600}
+.doc-date{font-size:9.5px;color:#64748b;font-style:italic;margin-bottom:4px}
+.doc-job ul{padding-left:14px;margin-top:3px}
+.doc-job li{font-size:10.5px;line-height:1.65;color:#334155}
+
+.doc-projects{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.doc-proj{
+  background:#f8fafc;border-left:2.5px solid #0ea5e9;
+  padding:5px 8px;font-size:9.5px;color:#334155;border-radius:3px;
+}
+
+.doc-edu{background:#f8fafc;border-radius:6px;padding:10px 12px}
+.doc-edu h3{font-size:11px;font-weight:700;color:#0f172a}
+.doc-edu p{font-size:10px;color:#64748b;margin-top:2px}
+
+.doc-certs{padding-left:14px}
+.doc-certs li{font-size:10.5px;line-height:1.65;color:#334155}
+
+.doc-refs{display:flex;gap:24px}
+.doc-ref{flex:1;font-size:10px;color:#334155}
+.doc-ref strong{display:block;color:#0f172a;font-size:10.5px;margin-bottom:2px}
+</style>
+</head><body>
+<div class="doc">
+
+  <div class="doc-header">
+    <div class="doc-avi"><img src="me.jfif" alt="Kingsley Ezekiel Nabla"></div>
+    <div class="doc-id">
+      <h1>Kingsley Ezekiel Nabla</h1>
+      <div class="doc-role">IT Infrastructure Specialist | Full Stack Developer</div>
+      <div class="doc-contact">
+        <span>📍 Accra, Ghana</span>
+        <span>📞 +233 548 953 201</span>
+        <span>📧 <a href="mailto:kinnabla@gmail.com">kinnabla@gmail.com</a></span>
+        <span>🔗 <a href="https://gh.linkedin.com/in/kingsley-nabla-05a3b0119" target="_blank">linkedin.com/in/kingsley-nabla</a></span>
+        <span>🌐 <a href="https://kingsleynabla.github.io/" target="_blank">kingsleynabla.github.io</a></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-sec">
+    <h2>Professional Summary</h2>
+    <p class="doc-summary">Results-driven IT Infrastructure Specialist and Full Stack Developer with over 7 years of experience delivering enterprise infrastructure, platform engineering, and production web platforms. AWS Certified Cloud Practitioner with hands-on platform engineering experience, and a proven track record leading and contributing to Active Directory, NAS, and data center deployments. Complements this infrastructure depth with solo delivery of full stack Laravel applications — including university admissions and student portals, an e-commerce platform with logistics integration, and internal enterprise systems. Combines infrastructure expertise (networking, systems administration, cloud platforms) with hands-on software engineering (Laravel, PHP, MySQL, REST APIs, payment gateways) to build and support complete, reliable technology solutions from the ground up.</p>
+  </div>
+
+  <div class="doc-sec">
+    <h2>Core Skills</h2>
+    <div class="doc-tags">
+      <span class="doc-tag">Platform &amp; Infrastructure Engineering</span>
+      <span class="doc-tag">AWS Cloud (Certified Practitioner)</span>
+      <span class="doc-tag">Active Directory &amp; Domain Services</span>
+      <span class="doc-tag">NAS &amp; Enterprise Storage</span>
+      <span class="doc-tag">Data Center Build-Out</span>
+      <span class="doc-tag">Linux System Administration</span>
+      <span class="doc-tag">Networking &amp; CCTV Systems</span>
+      <span class="doc-tag">Laravel Full Stack Development</span>
+      <span class="doc-tag">PHP &amp; JavaScript</span>
+      <span class="doc-tag">REST API &amp; Payment Integrations</span>
+      <span class="doc-tag">MySQL Database Management</span>
+      <span class="doc-tag">WordPress &amp; Elementor</span>
+      <span class="doc-tag">Office 365 Administration</span>
+      <span class="doc-tag">AI-Integrated Product Development</span>
+    </div>
+  </div>
+
+  <div class="doc-sec">
+    <h2>Professional Experience</h2>
+
+    <div class="doc-job">
+      <h3>IT Infrastructure Specialist &amp; Full Stack Developer</h3>
+      <div class="doc-company">Zeepay Ghana Limited</div>
+      <div class="doc-date">2019 – Present</div>
+      <ul>
+        <li>Own end-to-end IT infrastructure: networking, domain services, telephony, biometric access control, and CCTV.</li>
+        <li>Delivered a full Active Directory deployment as part of the core infrastructure team.</li>
+        <li>Delivered a full NAS deployment as part of the core infrastructure team, restructuring enterprise storage and backup.</li>
+        <li>Built out a company mini internal data center — rack layout, server provisioning, and network cabling.</li>
+        <li>Built the company Intranet Platform, Grievance Management Portal, and Visitor Log System solo on Laravel.</li>
+        <li>Integrated the Hubtel SMS API into an internal communications platform.</li>
+        <li>Configured domain controllers and shared drive infrastructure; tested API integrations with Postman.</li>
+      </ul>
+    </div>
+
+    <div class="doc-job">
+      <h3>Service Support – Infrastructure Team</h3>
+      <div class="doc-company">Stanbic Bank Ghana Limited</div>
+      <div class="doc-date">2018 – 2019</div>
+      <ul>
+        <li>Provided technical support and infrastructure maintenance across all bank branches.</li>
+        <li>Participated in the Windows 10 enterprise deployment rollout project.</li>
+        <li>Assisted with Avaya telephony firmware upgrades and structured cable management.</li>
+      </ul>
+    </div>
+
+    <div class="doc-job">
+      <h3>Full Stack Developer</h3>
+      <div class="doc-company">Independent / Contract Projects</div>
+      <div class="doc-date">2021 – Present</div>
+      <ul>
+        <li>Built Fanaka University's website, payment-integrated Application Portal, and Student Portal solo, full stack.</li>
+        <li>Built and maintain the Ghana Fintech Awards website; delivered supporting API integrations.</li>
+        <li>Designed and built OneCart Africa, a solo e-commerce platform integrated with a logistics partner.</li>
+        <li>Delivered development and integration work for Apprise (apprisemusic.com).</li>
+        <li>Building an AI-integrated event planning platform as an independent product.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="doc-sec">
+    <h2>Major Projects</h2>
+    <div class="doc-projects">
+      <div class="doc-proj">fanaka.edu.gh</div>
+      <div class="doc-proj">apply.fanaka.edu.gh</div>
+      <div class="doc-proj">portal.fanaka.edu.gh</div>
+      <div class="doc-proj">onecartafrica.com</div>
+      <div class="doc-proj">ghanafintechawards.org</div>
+      <div class="doc-proj">apprisemusic.com</div>
+      <div class="doc-proj">topfintechvoices.org</div>
+      <div class="doc-proj">fintechawardsug.com</div>
+      <div class="doc-proj">Company Intranet Platform</div>
+      <div class="doc-proj">Grievance Management Portal</div>
+      <div class="doc-proj">Visitor Log System</div>
+      <div class="doc-proj">School SMS (Hubtel API)</div>
+    </div>
+  </div>
+
+  <div class="doc-sec">
+    <h2>Certifications</h2>
+    <ul class="doc-certs">
+      <li>Advanced Linux System Administration</li>
+      <li>AWS Certified Cloud Practitioner</li>
+      <li>AI for Brainstorming &amp; Planning</li>
+      <li>Safe &amp; Responsible AI Use</li>
+      <li>Emergency First Aid, CPR &amp; AED</li>
+      <li>Laravel Full Stack Development</li>
+      <li>API Integration with Postman</li>
+    </ul>
+  </div>
+
+  <div class="doc-sec">
+    <h2>Education</h2>
+    <div class="doc-edu">
+      <h3>Bachelor of Education (B.Ed.) – Computer Science</h3>
+      <p>University of Cape Coast &nbsp;|&nbsp; 2014 – 2018</p>
+    </div>
+  </div>
+
+  <div class="doc-sec">
+    <h2>References</h2>
+    <div class="doc-refs">
+      <div class="doc-ref"><strong>Dr. Rosemary Twum</strong>Lecturer, University of Cape Coast<br>+233 24 464 8897</div>
+      <div class="doc-ref"><strong>Mr. Michael Bamfo</strong>CEO, BamfoxxHost<br>+233 24 502 4002</div>
+    </div>
+  </div>
+
+</div>
+</body></html>`);
   win.document.close();
   setTimeout(()=>{win.print();},600);
 }
