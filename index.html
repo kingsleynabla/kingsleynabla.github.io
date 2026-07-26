@@ -1073,6 +1073,19 @@ function printCVCreative(){
       </ul>
     </div>`;
 
+  const sidebarHTML2 = `
+    <div class="cv-avi"><img src="me.jfif" alt="Kingsley Ezekiel Nabla"></div>
+    <div class="cv-name">Kingsley Ezekiel Nabla</div>
+    <div class="cv-post">IT Infrastructure Specialist | Full Stack Developer<br>Cloud &amp; Enterprise Systems</div>
+    <div class="cv-sec">
+      <h3>Contact</h3>
+      <p>📍 Accra, Ghana</p>
+      <p>📞 +233 548 953 201</p>
+      <p>📧 <a href="mailto:kinnabla@gmail.com">kinnabla@gmail.com</a></p>
+      <p>🔗 <a href="https://gh.linkedin.com/in/kingsley-nabla-05a3b0119" target="_blank">linkedin.com/in/kingsley-nabla</a></p>
+      <p>🌐 <a href="https://kingsleynabla.github.io/" target="_blank">kingsleynabla.github.io</a></p>
+    </div>`;
+
   const page1Main = `
     <div class="cv-main-sec">
       <h2>Professional Summary</h2>
@@ -1160,14 +1173,14 @@ body{font-family:'DM Sans',sans-serif;background:#fff}
 .cv-page-block{width:297mm;height:210mm;overflow:hidden;page-break-after:always}
 .cv-page-block:last-child{page-break-after:auto}
 .cv-render{display:grid;grid-template-columns:260px 1fr;width:100%;height:100%}
-.cv-sidebar{background:#0f172a;color:#fff;padding:36px 22px;-webkit-print-color-adjust:exact;print-color-adjust:exact;overflow:hidden}
-.cv-avi{width:100px;height:100px;border-radius:50%;overflow:hidden;margin:0 auto 12px;border:3px solid rgba(255,255,255,.1);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.cv-sidebar{background:#0f172a;color:#fff;padding:31px 22px;-webkit-print-color-adjust:exact;print-color-adjust:exact;overflow:hidden}
+.cv-avi{width:100px;height:100px;border-radius:50%;overflow:hidden;margin:0 auto 11px;border:3px solid rgba(255,255,255,.1);-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .cv-avi img{width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:50%;display:block}
 .cv-name{text-align:center;font-size:16px;font-weight:600;line-height:1.2;margin-bottom:4px}
-.cv-post{text-align:center;color:#38bdf8;font-size:9.5px;margin-bottom:22px;line-height:1.5}
-.cv-sec{margin-bottom:18px}
-.cv-sec h3{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#38bdf8;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:5px;margin-bottom:8px}
-.cv-sec p,.cv-sec li{font-size:10.5px;line-height:1.7;color:#cbd5e1}
+.cv-post{text-align:center;color:#38bdf8;font-size:9.5px;margin-bottom:19px;line-height:1.5}
+.cv-sec{margin-bottom:16px}
+.cv-sec h3{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#38bdf8;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:5px;margin-bottom:7px}
+.cv-sec p,.cv-sec li{font-size:10.5px;line-height:1.6;color:#cbd5e1}
 .cv-sec ul{list-style:none;padding:0}
 .cv-sec a{color:#38bdf8;text-decoration:none}
 .cv-main{background:#fff;padding:32px 38px;overflow:hidden}
@@ -1198,7 +1211,7 @@ body{font-family:'DM Sans',sans-serif;background:#fff}
 </div>
 <div class="cv-page-block">
   <div class="cv-render">
-    <aside class="cv-sidebar">${sidebarHTML}</aside>
+    <aside class="cv-sidebar">${sidebarHTML2}</aside>
     <main class="cv-main">${page2Main}</main>
   </div>
 </div>
